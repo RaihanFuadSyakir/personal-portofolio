@@ -1,0 +1,13 @@
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: dev_nodejs
+    working_dir : /app
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./next:/app
