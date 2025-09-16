@@ -8,25 +8,14 @@ import {NavigationMenu,
 	NavigationMenuTrigger,
 	NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useGoToPageSection } from "@/components/custom-hook/UseGoToPage";
 export default function Navbar() {
 const router = useRouter();
-const goToPageSection = (event: React.SyntheticEvent) => {
-  event.preventDefault();
-  const target = event.target as HTMLAnchorElement;
-  const sectionId = target.getAttribute("href")?.substring(1);
-  if (sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      router.push(`#${sectionId}`);
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-}
+const goToPageSection = useGoToPageSection();
 useEffect(() => {
     setDefaultTheme();
     updateSection();
