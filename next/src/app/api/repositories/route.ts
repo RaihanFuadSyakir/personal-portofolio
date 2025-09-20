@@ -4,7 +4,7 @@ export async function GET() {
 	const username = process.env.GITHUB_USERNAME;
 	const query = encodeURIComponent(`user:${username} is:public topics:>0`);
 	const githubFetchUrl = githubSearhUrl + query;
-	const raw = await githubFetcher(githubFetchUrl, {}).then(res => res.json());
+	const raw = await githubFetcher(githubFetchUrl, {},600).then(res => res.json());
 	const data : Repository[]= raw.items.map((repo: any) => ({
 		id: repo.id,
 		node_id: repo.node_id,

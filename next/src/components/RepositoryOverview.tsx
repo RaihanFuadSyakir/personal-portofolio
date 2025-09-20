@@ -16,7 +16,6 @@ export function RepositoryOverview({ data }: { data: Repository[] }) {
   // 📊 Summary
   const repoCount = data.length;
   const totalSize = data.reduce((sum, repo) => sum + repo.size, 0);
-  console.log(totalSize);
   const avgSize = repoCount > 0 ? Math.round(totalSize / repoCount) : 0;
 
   // 📊 Aggregate languages

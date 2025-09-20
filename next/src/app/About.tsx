@@ -5,7 +5,7 @@ export default function About({avatarUrl} : {avatarUrl : string | undefined}) {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center bg-white dark:bg-gray-800 px-6 py-16 rounded-md"
+      className="min-h-screen flex items-center bg-slate-200 dark:bg-gray-800 px-6 py-16 rounded-md"
     >
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         
