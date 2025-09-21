@@ -6,4 +6,5 @@ RUN sudo apk --no-cache add bash
 WORKDIR /app
 COPY ./next /app
 RUN npm install
-CMD ["npm", "run", "dev"]
+RUN npm run build
+CMD ["npm", "run", "start"]
