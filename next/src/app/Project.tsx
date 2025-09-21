@@ -1,15 +1,19 @@
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import { ResponsiveContainer, BarChart, CartesianGrid, Bar, XAxis, YAxis, Tooltip } from "recharts";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { RepositoryOverview } from "@/components/RepositoryOverview";
 import RepositoryDetail from "@/components/RepositoryDetail";
+import { MultiSelect } from "@/components/multi-select";
+import { RepoSearchInput } from "@/components/RepoSearchInput";
+import { RepoCard } from "@/components/MinimizedRepositoryCard";
 export default function Project(){
 const {data, error, isLoading} = useSWR<Repository[]>('/api/repositories',(url : string) => fetcher(url,600));
 const [selectedRepo, setSelectedRepo] = useState<string | null>(null);
+const [searchQuery, setSearchQuery] = useState('');
 const [allLanguages, setAllLanguages] = useState<{ name: string; size: number }[]>([]);
+const allTopics = Array.from(new Set(data?.flatMap(repo => repo.topics)));
+const topicOptions = allTopics.map(topic => ({ label: topic, value: topic }));
+const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 useEffect(() => {
   if(!data) return;
   const languages = data.reduce((acc, repo) => {
@@ -29,6 +33,15 @@ useEffect(() => {
     );
   if (!data) return null;
 const repo = data.find((r) => r.name === selectedRepo);
+const filteredRepo = data.filter(repo =>
+  // match topics
+  selectedTopics.every(topic => repo.topics.includes(topic)) &&
+  // match name (case insensitive)
+  repo.name.toLowerCase().includes(searchQuery.toLowerCase())
+)
+function onSelectRepo(id:number){
+	console.log(id);
+}
 return(
   <section
       id="project"
@@ -43,18 +56,11 @@ return(
 
 	<RepositoryOverview data={data} />
         {/* 🔹 Dropdown */}
-        <Select onValueChange={setSelectedRepo}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a repository" />
-          </SelectTrigger>
-          <SelectContent>
-            {data.map((repo) => (
-              <SelectItem key={repo.id} value={repo.name}>
-                {repo.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+	<MultiSelect options={topicOptions} onValueChange={setSelectedTopics} defaultValue={[]}/>
+	<RepoSearchInput value={searchQuery} onValueChange={setSearchQuery}/>
+	{filteredRepo.map((repo) => (
+		<RepoCard key={repo.id} repo={repo} onClick={onSelectRepo} />	
+	))}
 	{repo && <RepositoryDetail repo={repo} />}
 
       </div>
