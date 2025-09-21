@@ -33,9 +33,14 @@ export default function RepositoryDetail({ repo }: { repo: Repository }) {
 	        <span className="font-semibold">Total Commits:</span>{" "}
 		{commitList.data?.total_data || 0}
 	      </p>
-	        <div className="flex gap-2">
-		<p className="font-semibold">Topics:</p>{" "}
-		<div className="flex flex-wrap">
+	      <div className="grid grid-cols-8 gap-2">
+		<div className="col-span-2">
+			<p className="text-sm flex justify-between font-semibold">
+			<span>Topics</span>
+			<span>:</span>
+			</p>{" "}
+		</div>
+		<div className="col-span-6 flex flex-wrap">
 		{repo.topics.length > 0 ? (
 		  repo.topics.map((topic) => (
 		    <Badge
@@ -49,10 +54,31 @@ export default function RepositoryDetail({ repo }: { repo: Repository }) {
 		) : (
 		  "-"
 		)}
+		</div>
+		<div className="col-span-2">
+			<p className="text-sm flex justify-between font-semibold">
+			<span>Languages</span>
+			<span>:</span>
+			</p>{" "}
+		</div>
+		<div className="col-span-6 flex flex-wrap">
+		{repo.languages?.length || 0 > 0 ? (
+		  repo.languages?.map((lang) => (
+		    <Badge
+		    key={lang.name}
+		    variant="outline"
+		    className="bg-red-100 text-red-700 dark:bg-sky-900 dark:text-sky-300 m-1"
+		    >
+		      {lang.name}
+		    </Badge>
+		  ))
+		) : (
+		  "-"
+		)}
+		</div>
 
-		</div>
-		</div>
-              <p>
+	      </div>
+	      <p>
                 <span className="font-semibold">GitHub URL:</span>{" "}
                 <a
                   href={repo.html_url}
