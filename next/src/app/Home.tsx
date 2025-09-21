@@ -1,6 +1,5 @@
 "use client"
 import { useGoToPageSection } from "@/components/custom-hook/UseGoToPage";
-import useSWR from "swr";
 // Home.jsx
 export default function Home({name} : {name : string | undefined}) {
 const goToPageSection = useGoToPageSection();
@@ -12,7 +11,7 @@ const goToPageSection = useGoToPageSection();
     <div className="grid grid-cols-1 items-center gap-4 p-4">
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-          Hi, I'm <span className="text-blue-600">{name}</span>
+          Hi, I&apos;m <span className="text-blue-600">{name}</span>
         </h1>
         <p className="mt-6 text-lg sm:text-xl text-gray-700 dark:text-gray-300">
           A passionate <span className="font-semibold">Web Developer</span> who loves building 

@@ -2,37 +2,47 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { RepositoryOverview } from "@/components/RepositoryOverview";
-import RepositoryDetail from "@/components/RepositoryDetail";
 import { MultiSelect } from "@/components/multi-select";
 import { RepoSearchInput } from "@/components/RepoSearchInput";
 import { RepoCard } from "@/components/MinimizedRepositoryCard";
 export default function Project(){
 const {data, error, isLoading} = useSWR<Repository[]>('/api/repositories',(url : string) => fetcher(url,600));
 const [searchQuery, setSearchQuery] = useState('');
-const [allLanguages, setAllLanguages] = useState<{ name: string; size: number }[]>([]);
-const topicCount: Record<string, number> = {};
-data?.forEach(repo => {
-  repo.topics.forEach(topic => {
-    topicCount[topic] = (topicCount[topic] || 0) + 1
-  })
-})
+const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+const filteredRepo = data?.filter(repo =>
+  // match topics
+  selectedTopics.every(topic => repo.topics.includes(topic)) &&
+  selectedLanguages.every(language =>
+  repo.languages?.some(l => l.name === language)) &&
+  // match name (case insensitive)
+  repo.name.toLowerCase().includes(searchQuery.toLowerCase())
+)
 
+const topicCount: Record<string, number> = {};
+const languageCount: Record<string, number> = {};
+// filter by topics
+filteredRepo?.forEach(repo => {
+  repo.topics.forEach(topic => {
+    topicCount[topic] = (topicCount[topic] || 0) + 1;
+  });
+  repo.languages?.forEach(language => {
+    languageCount[language.name] = (languageCount[language.name] || 0) + 1;
+  })
+});
 // 2. Create unique topic options with count
 const topicOptions = Object.keys(topicCount).map(topic => ({
   value: topic,
   label: `${topic} (${topicCount[topic]})`
-}))
-const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
-useEffect(() => {
-  if(!data) return;
-  const languages = data.reduce((acc, repo) => {
-    if (repo.languages) {
-      acc.push(...repo.languages);
-    }
-    return acc;
-  }, [] as { name: string; size: number }[]);
-  setAllLanguages(languages);
-},[data]);
+}));
+
+// filter by languages
+// 2. Create unique language options with count
+const languageOptions = Object.keys(languageCount).map(language => ({
+  value: language,
+  label: `${language} (${languageCount[language]})`
+}));
+
   if (isLoading) return <div className="text-center p-8">Loading...</div>;
   if (error)
     return (
@@ -41,12 +51,6 @@ useEffect(() => {
       </div>
     );
   if (!data) return null;
-const filteredRepo = data.filter(repo =>
-  // match topics
-  selectedTopics.every(topic => repo.topics.includes(topic)) &&
-  // match name (case insensitive)
-  repo.name.toLowerCase().includes(searchQuery.toLowerCase())
-)
 return(
   <section
       id="project"
@@ -69,10 +73,17 @@ return(
 		placeholder="Filter by topics"
 		className="relative w-full bg-white dark:bg-gray-800"
 		/>
+	<MultiSelect 
+		options={languageOptions} 
+		onValueChange={setSelectedLanguages} 
+		defaultValue={[]}
+		placeholder="Filter by languages"
+		className="relative w-full bg-white dark:bg-gray-800"
+		/>
 	<div className="flex justify-self-end">
-		<span className="text-sm text-gray-500">result : {filteredRepo.length}</span>
+		<span className="text-sm text-gray-500">result : {filteredRepo?.length || 0}</span>
 	</div>
-	{filteredRepo.map((repo) => (
+	{filteredRepo?.map((repo) => (
 		<RepoCard key={repo.id} repo={repo}/>	
 	))}
 

@@ -27,7 +27,7 @@ export default function About({avatarUrl} : {avatarUrl : string | undefined}) {
         {/* Profile Content */}
     <div>
 	<p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-	  I'm a developer passionate about building scalable and efficient software solutions. 
+	  I&apos;m a developer passionate about building scalable and efficient software solutions. 
 	  I work across the full stack, with expertise in <span className="font-semibold">Frontend</span>, 
 	  <span className="font-semibold">Backend</span>, and <span className="font-semibold">DevOps</span> 
 	  practices, using modern frameworks and tools like <span className="font-semibold">React</span>, 

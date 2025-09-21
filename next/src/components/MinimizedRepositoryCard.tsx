@@ -41,16 +41,49 @@ export function RepoCard({ repo}: RepoCardProps) {
 	      <CardHeader>
 		<CardTitle>{repo.name}</CardTitle>
 	      </CardHeader>
-	      <CardContent className="flex flex-wrap gap-2">
+	      <CardContent className="grid grid-cols-8 gap-2">
+		<div className="col-span-2">
+			<p className="text-sm flex justify-between font-semibold">
+			<span>Topics</span>
+			<span>:</span>
+			</p>{" "}
+		</div>
+		<div className="col-span-6 flex flex-wrap">
 		{repo.topics.length > 0 ? (
 		  repo.topics.map((topic) => (
-		    <Badge key={topic} variant="secondary">
+		    <Badge
+		    key={topic}
+		    variant="outline"
+		    className="bg-blue-100 text-blue-700 dark:bg-sky-900 dark:text-sky-300 m-1"
+		    >
 		      {topic}
 		    </Badge>
 		  ))
 		) : (
-		  <span className="text-sm text-muted-foreground">No topics</span>
+		  "-"
 		)}
+		</div>
+		<div className="col-span-2">
+			<p className="text-sm flex justify-between font-semibold">
+			<span>Languages</span>
+			<span>:</span>
+			</p>{" "}
+		</div>
+		<div className="col-span-6 flex flex-wrap">
+		{repo.languages?.length || 0 > 0 ? (
+		  repo.languages?.map((lang) => (
+		    <Badge
+		    key={lang.name}
+		    variant="outline"
+		    className="bg-red-100 text-red-700 dark:bg-sky-900 dark:text-sky-300 m-1"
+		    >
+		      {lang.name}
+		    </Badge>
+		  ))
+		) : (
+		  "-"
+		)}
+		</div>
 	      </CardContent>
 	    </Card>
 	  </DialogTrigger>
