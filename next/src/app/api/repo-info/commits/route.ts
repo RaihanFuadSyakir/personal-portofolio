@@ -1,5 +1,6 @@
 import { githubFetcher, githubParseLinkHeader } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
+
 export async function GET(request: NextRequest) {
 	const encodedUrl = request.nextUrl.searchParams.get("url");
 	const username = process.env.GITHUB_USERNAME;
@@ -24,7 +25,7 @@ export async function GET(request: NextRequest) {
 	}
 
 	if(raw.status === 404) return new NextResponse("Not found", { status: 404 });
-	const data : Commit[] = json.map((commit: any) => ({
+	const data : Commit[] = json.map((commit : GithubCommit) => ({
 		sha: commit.sha,
 		message: commit.commit.message,
 		author: commit.commit.author,

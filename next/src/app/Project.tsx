@@ -1,6 +1,6 @@
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { RepositoryOverview } from "@/components/RepositoryOverview";
 import { MultiSelect } from "@/components/multi-select";
 import { RepoSearchInput } from "@/components/RepoSearchInput";

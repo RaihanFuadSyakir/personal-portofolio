@@ -1,6 +1,6 @@
 import { githubFetcher } from "@/lib/utils";
 
-export async function GET(request: Request) {
+export async function GET() {
 	const githubUserUrl = "https://api.github.com/user";
 	const raw = await githubFetcher(githubUserUrl, {}).then(res => res.json());
 	const data: Profile = {

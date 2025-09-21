@@ -21,3 +21,36 @@ interface Repository {
 	description : string;
 	languages? : {name : string, size : number}[];
 }
+interface GithubCommit {
+  sha: string
+  html_url: string
+  commit: {
+    message: string
+    author: {
+      name: string
+      email: string
+      date: string
+    }
+    committer: {
+      name: string
+      email: string
+      date: string
+    }
+  }
+}
+interface Commit {
+	sha : string;
+	html_url : string;
+	url : string;
+	message : string;
+	author : {
+		name : string;
+		email : string;
+		date : string;
+	};
+	committer : {
+		name : string;
+		email : string;
+		date : string;
+	};
+}
