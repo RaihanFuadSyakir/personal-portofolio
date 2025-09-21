@@ -25,29 +25,32 @@ export default function About({avatarUrl} : {avatarUrl : string | undefined}) {
 	    </Avatar>
     </div>
         {/* Profile Content */}
-        <div>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-            I'm a developer who enjoys creating meaningful digital experiences.
-            My main focus is building responsive web apps with modern frameworks 
-            like <span className="font-semibold">React</span>,{" "}
-            <span className="font-semibold">Next.js</span>, and{" "}
-            <span className="font-semibold">Laravel</span>.
-          </p>
-          <ul className="space-y-3 text-gray-700 dark:text-gray-300">
-            <li>💻 Full-Stack Development</li>
-            <li>🎨 UI/UX Design Enthusiast</li>
-            <li>🚀 Always Learning & Exploring</li>
-          </ul>
-          <div className="mt-8">
-            <a
-              href="#project"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
-            >
-              Explore Projects
-            </a>
-          </div>
+    <div>
+	<p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+	  I'm a developer passionate about building scalable and efficient software solutions. 
+	  I work across the full stack, with expertise in <span className="font-semibold">Frontend</span>, 
+	  <span className="font-semibold">Backend</span>, and <span className="font-semibold">DevOps</span> 
+	  practices, using modern frameworks and tools like <span className="font-semibold">React</span>, 
+	  <span className="font-semibold">Next.js</span>, <span className="font-semibold">Node.js</span>, 
+	  and cloud platforms.
+	</p>
         </div>
-
+	      <div className="col-span-1 md:col-span-2">
+		<ul className="space-y-3 text-gray-700 dark:text-gray-300">
+		  <li>💻 Full-Stack Development (Frontend & Backend)</li>
+		  <li>⚙️ Backend & API Design</li>
+		  <li>🎨 Implement UI/UX to Frontend</li>
+		  <li>🚀 DevOps: CI/CD, Cloud Deployment, & Automation</li>
+		</ul>
+		  <div className="mt-8">
+		    <a
+		      href="#project"
+		      className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+		    >
+		      Explore Projects
+		    </a>
+		  </div>
+	      </div>
       </div>
     </section>
   );

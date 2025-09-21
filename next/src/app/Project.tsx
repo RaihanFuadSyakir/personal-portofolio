@@ -8,11 +8,20 @@ import { RepoSearchInput } from "@/components/RepoSearchInput";
 import { RepoCard } from "@/components/MinimizedRepositoryCard";
 export default function Project(){
 const {data, error, isLoading} = useSWR<Repository[]>('/api/repositories',(url : string) => fetcher(url,600));
-const [selectedRepo, setSelectedRepo] = useState<string | null>(null);
 const [searchQuery, setSearchQuery] = useState('');
 const [allLanguages, setAllLanguages] = useState<{ name: string; size: number }[]>([]);
-const allTopics = Array.from(new Set(data?.flatMap(repo => repo.topics)));
-const topicOptions = allTopics.map(topic => ({ label: topic, value: topic }));
+const topicCount: Record<string, number> = {};
+data?.forEach(repo => {
+  repo.topics.forEach(topic => {
+    topicCount[topic] = (topicCount[topic] || 0) + 1
+  })
+})
+
+// 2. Create unique topic options with count
+const topicOptions = Object.keys(topicCount).map(topic => ({
+  value: topic,
+  label: `${topic} (${topicCount[topic]})`
+}))
 const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 useEffect(() => {
   if(!data) return;
@@ -32,16 +41,12 @@ useEffect(() => {
       </div>
     );
   if (!data) return null;
-const repo = data.find((r) => r.name === selectedRepo);
 const filteredRepo = data.filter(repo =>
   // match topics
   selectedTopics.every(topic => repo.topics.includes(topic)) &&
   // match name (case insensitive)
   repo.name.toLowerCase().includes(searchQuery.toLowerCase())
 )
-function onSelectRepo(id:number){
-	console.log(id);
-}
 return(
   <section
       id="project"
@@ -56,12 +61,20 @@ return(
 
 	<RepositoryOverview data={data} />
         {/* 🔹 Dropdown */}
-	<MultiSelect options={topicOptions} onValueChange={setSelectedTopics} defaultValue={[]}/>
 	<RepoSearchInput value={searchQuery} onValueChange={setSearchQuery}/>
+	<MultiSelect 
+		options={topicOptions} 
+		onValueChange={setSelectedTopics} 
+		defaultValue={[]}
+		placeholder="Filter by topics"
+		className="relative w-full bg-white dark:bg-gray-800"
+		/>
+	<div className="flex justify-self-end">
+		<span className="text-sm text-gray-500">result : {filteredRepo.length}</span>
+	</div>
 	{filteredRepo.map((repo) => (
-		<RepoCard key={repo.id} repo={repo} onClick={onSelectRepo} />	
+		<RepoCard key={repo.id} repo={repo}/>	
 	))}
-	{repo && <RepositoryDetail repo={repo} />}
 
       </div>
     </section>
