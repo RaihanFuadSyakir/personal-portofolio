@@ -1,5 +1,6 @@
 
 // About.jsx
+import { Badge } from "@/components/ui/badge";
 import {Avatar, AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
 export default function About({avatarUrl} : {avatarUrl : string | undefined}) {
   return (
@@ -52,6 +53,35 @@ export default function About({avatarUrl} : {avatarUrl : string | undefined}) {
 		  </div>
 	      </div>
       </div>
+	{/* Tech Stack Section */}
+	<div className="mt-8">
+	  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+	    🛠 Tech Stack
+	  </h3>
+	  <div className="flex flex-wrap gap-2">
+	    {/* Full Stack */}
+	    <Badge variant="secondary">Laravel</Badge>
+	    <Badge variant="secondary">Next.js</Badge>
+
+	    {/* Backend */}
+	    <Badge variant="secondary">Go</Badge>
+	    <Badge variant="secondary">Express.js</Badge>
+	    <Badge variant="secondary">Java Spring Boot</Badge>
+	    <Badge variant="secondary">Flask</Badge>
+
+	    {/* Frontend */}
+	    <Badge variant="secondary">React (Vite)</Badge>
+	    <Badge variant="secondary">Vue</Badge>
+	    <Badge variant="secondary">Blade (PHP)</Badge>
+
+	    {/* UI Libraries */}
+	    <Badge variant="secondary">Material UI</Badge>
+	    <Badge variant="secondary">Shadcn</Badge>
+
+	    {/* Focus */}
+	    <Badge variant="outline">Mostly Full Stack with Laravel & Next.js</Badge>
+	  </div>
+	</div>
     </section>
   );
 }
