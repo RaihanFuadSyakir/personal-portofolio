@@ -75,7 +75,7 @@ export function RepoCard({ repo}: RepoCardProps) {
 		    <Badge
 		    key={lang.name}
 		    variant="outline"
-		    className="bg-red-100 text-red-700 dark:bg-sky-900 dark:text-sky-300 m-1"
+		    className="bg-red-100 text-red-700 dark:bg-rose-900 dark:text-rose-300 m-1"
 		    >
 		      {lang.name}
 		    </Badge>
