@@ -10,7 +10,16 @@ import { useRouter } from "next/navigation";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useGoToPageSection } from "@/components/custom-hook/UseGoToPage";
-import { Sparkles, X, Menu, User, Home, FolderKanban } from "lucide-react";
+import {
+  Sparkles,
+  X,
+  Menu,
+  User,
+  Home,
+  FolderKanban,
+  Moon,
+  Sun,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const router = useRouter();
@@ -131,7 +140,19 @@ export default function Navbar() {
             checked={theme === "dark"}
             onCheckedChange={updateTheme}
           />
-          <Label htmlFor="dark-mode">Dark Mode</Label>
+          {/* dynamic icon */}
+          {theme === "dark" ? (
+            <Moon className="w-5 h-5 text-cyan-400 transition-transform duration-300 rotate-0 scale-100" />
+          ) : (
+            <Sun className="w-5 h-5 text-amber-500 transition-transform duration-300 rotate-0 scale-100" />
+          )}
+
+          <Label
+            htmlFor="dark-mode-mobile"
+            className="text-sm text-muted-foreground select-none"
+          >
+            {theme === "light" ? "Light" : "Dark"} Mode
+          </Label>
         </div>
 
         {/* --- Mobile Toggle Button --- */}
@@ -178,57 +199,70 @@ export default function Navbar() {
                 className="flex flex-col space-y-4 p-6 text-lg font-medium"
                 onClick={goToPageSection}
               >
-  {navItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = section === item.href;
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = section === item.href;
 
-        return (
-          <a
-            key={item.href}
-            href={item.href}
-            onClick={() => setOpen(false)}
-            className={`group/item flex items-center gap-3 relative transition-colors duration-200
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={`group/item flex items-center gap-3 relative transition-colors duration-200
               ${
                 isActive
                   ? "text-blue-500 dark:text-cyan-400"
                   : "text-foreground hover:text-blue-400 dark:hover:text-cyan-300"
               }`}
-          >
-            {/* icon */}
-            <Icon
-              className={`w-5 h-5 transition-all duration-200 ${
-                isActive
-                  ? "text-blue-500 dark:text-cyan-400"
-                  : "text-slate-500 dark:text-slate-400 group-hover/item:text-blue-400 dark:group-hover/item:text-cyan-300 group-hover/item:-translate-y-[1px]"
-              }`}
-            />
+                    >
+                      {/* icon */}
+                      <Icon
+                        className={`w-5 h-5 transition-all duration-200 ${
+                          isActive
+                            ? "text-blue-500 dark:text-cyan-400"
+                            : "text-slate-500 dark:text-slate-400 group-hover/item:text-blue-400 dark:group-hover/item:text-cyan-300 group-hover/item:-translate-y-[1px]"
+                        }`}
+                      />
 
-            {/* label */}
-            <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
-              {item.label}
-            </span>
+                      {/* label */}
+                      <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
+                        {item.label}
+                      </span>
 
-            {/* active underline */}
-            {isActive && (
-              <span className="absolute -bottom-1 left-0 w-6 h-[2px] bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-            )}
-          </a>
-        );
-      })}
+                      {/* active underline */}
+                      {isActive && (
+                        <span className="absolute -bottom-1 left-0 w-6 h-[2px] bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                      )}
+                    </a>
+                  );
+                })}
 
                 {/* Theme switch */}
-                <div className="flex items-center space-x-3 pt-6 border-t border-white/10">
+                <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                  {/* Label + icons */}
+                  <div className="flex items-center space-x-3">
+                    {/* dynamic icon */}
+                    {theme === "dark" ? (
+                      <Moon className="w-5 h-5 text-cyan-400 transition-transform duration-300 rotate-0 scale-100" />
+                    ) : (
+                      <Sun className="w-5 h-5 text-amber-500 transition-transform duration-300 rotate-0 scale-100" />
+                    )}
+
+                    <Label
+                      htmlFor="dark-mode-mobile"
+                      className="text-sm text-muted-foreground select-none"
+                    >
+                      {theme === "light" ? "Light" : "Dark"} Mode
+                    </Label>
+                  </div>
+
+                  {/* switch */}
                   <Switch
                     id="dark-mode-mobile"
                     checked={theme === "dark"}
                     onCheckedChange={updateTheme}
+                    className="transition-all"
                   />
-                  <Label
-                    htmlFor="dark-mode-mobile"
-                    className="text-sm text-muted-foreground"
-                  >
-                    Dark Mode
-                  </Label>
                 </div>
               </nav>
             </motion.div>
