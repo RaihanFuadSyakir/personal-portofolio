@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useGoToPageSection } from "@/components/custom-hook/UseGoToPage";
-import { Sparkles, X, Menu } from "lucide-react";
+import { Sparkles, X, Menu, User, Home, FolderKanban } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const router = useRouter();
@@ -65,16 +65,16 @@ export default function Navbar() {
     }
   };
   const navItems = [
-    { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#project", label: "Projects" },
+    { href: "#home", label: "Home", icon: Home },
+    { href: "#about", label: "About", icon: User },
+    { href: "#project", label: "Projects", icon: FolderKanban },
   ];
   return (
     <div className="fixed top-0 left-0 w-full bg-deepsea-base shadow-md z-50">
       <div className="flex items-center justify-between h-16 px-4">
         {/* Logo / Brand */}
         <div className="flex items-center gap-2 font-semibold text-lg">
-          <Sparkles className="w-6 h-6 text-cyan-500 dark:text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.6)]" />
+          <User className="w-6 h-6 text-blue-500 dark:text-cyan-500 drop-shadow-[0_0_6px_rgba(14,165,233,0.6)]" />
           <span className="text-foreground">My Profile</span>
         </div>
 
@@ -82,23 +82,44 @@ export default function Navbar() {
         <div className="hidden md:flex flex-1 items-center justify-center">
           <NavigationMenu onClick={goToPageSection}>
             <NavigationMenuList className="flex gap-8">
-              {navItems.map((item) => (
-                <NavigationMenuItem key={item.href}>
-                  <NavigationMenuLink
-                    href={item.href}
-                    className={`relative transition-colors duration-300${
-                      section === item.href
-                        ? "!text-blue-500 focus:text-blue-500 rounded-md dark:text-cyan-400 dark:focus:text-cyan-400 bg-white focus:bg-white dark:bg-slate-800"
-                        : "text-muted-foreground hover:text-blue-400 dark:hover:text-cyan-300"
-                    }`}
-                  >
-                    {item.label}
-                    {section === item.href && (
-                      <span className="absolute-bottom-1 left-0 right-0 mx-auto h-[2px] w-6 bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-                    )}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
+{navItems.map((item) => {
+        const Icon = item.icon;
+        const isActive = section === item.href;
+
+        return (
+          <NavigationMenuItem key={item.href} className="group/item">
+            <NavigationMenuLink
+              href={item.href}
+              className={`relative inline-flex items-center gap-1.5 px-3 py-2 rounded-md transition-colors duration-300
+                ${
+                  isActive
+                    ? "!text-blue-500 dark:!text-cyan-400 bg-white dark:bg-slate-800"
+                    : "text-muted-foreground hover:text-blue-400 dark:hover:text-cyan-300"
+                }`}
+            >
+              {/* icon */}
+              <Icon
+                className={`w-4 h-4 transition-all duration-200
+                  ${
+                    isActive
+                      ? "text-blue-500 dark:text-cyan-400"
+                      : "text-slate-500 dark:text-slate-400 group-hover/item:text-blue-400 dark:group-hover/item:text-cyan-300 group-hover/item:-translate-y-[1px]"
+                  }`}
+              />
+
+              {/* label */}
+              <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
+                {item.label}
+              </span>
+
+              {/* active underline */}
+              {isActive && (
+                <span className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-6 bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+              )}
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        );
+      })}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -141,7 +162,7 @@ export default function Navbar() {
               {/* Header */}
               <div className="p-4 flex justify-between items-center border-b border-white/10">
                 <span className="font-semibold text-lg text-foreground">
-                  Menu
+                  Navigation
                 </span>
                 <button
                   onClick={() => setOpen(false)}
