@@ -18,6 +18,7 @@ interface Repository {
 	commits_url : string;
 	languages_url : string;
 	created_at : string;
+  updated_at : string;
 	description : string;
 	languages? : {name : string, size : number}[];
 }
