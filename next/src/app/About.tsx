@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import {
   Code2,
+  Cpu,
   FolderOpen,
   Layers,
   Layout,
@@ -49,8 +50,8 @@ export default function About({ avatarUrl, name }: AboutProps) {
             efficient software solutions. I work across the full stack, with
             expertise in <span className="font-semibold">Frontend</span>,{" "}
             <span className="font-semibold">Backend</span>, and{" "}
-            <span className="font-semibold">DevOps</span>{" "}
-            practices, using modern frameworks and tools like{" "}
+            <span className="font-semibold">DevOps</span> practices, using
+            modern frameworks and tools like{" "}
             <span className="font-semibold">React</span>,{""}
             <span className="font-semibold">Next.js</span>,{" "}
             <span className="font-semibold">Node.js</span>, and cloud platforms.
@@ -170,7 +171,39 @@ export default function About({ avatarUrl, name }: AboutProps) {
                 </Badge>
               </div>
             </div>
-
+            {/* ETL & Automation */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Workflow className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  ETL & Automation
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300">
+                  Python
+                </Badge>
+                <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300">
+                  Airflow
+                </Badge>
+                <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300">
+                  Crontab
+                </Badge>
+              </div>
+            </div>
+{/* Deployment & DevOps */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Cpu className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />
+            <span className="font-medium text-gray-800 dark:text-gray-200">Deployment & DevOps</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300">Nginx</Badge>
+            <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300">Reverse Proxy</Badge>
+            <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300">Docker</Badge>
+            <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300">Docker Compose</Badge>
+          </div>
+        </div>
             {/* === Focus === */}
             <div className="pt-2">
               <Badge
