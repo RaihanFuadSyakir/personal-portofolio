@@ -2,7 +2,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export function useGoToPageSection() {
+export function useGoToPageSection(setSection: (id: string) => void) {
   const router = useRouter();
 
   return (event: React.SyntheticEvent) => {
@@ -13,8 +13,10 @@ export function useGoToPageSection() {
     if (sectionId) {
       const section = document.getElementById(sectionId);
       if (section) {
-        router.push(`#${sectionId}`);
+        const hash =`#${sectionId}`; 
+        router.push(hash);
         section.scrollIntoView({ behavior: "smooth" });
+        setSection(hash);
       }
     }
   };
