@@ -67,7 +67,7 @@ export function RepositoryOverview({ data }: { data: Repository[] }) {
                   innerRadius={60}
                   outerRadius={100}
                   paddingAngle={4}
-                  label
+                  label={({ percent }) => `${percent}%`}
                 >
                   {languages.map((_, index) => (
                     <Cell
