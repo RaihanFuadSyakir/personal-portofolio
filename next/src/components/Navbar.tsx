@@ -82,44 +82,44 @@ export default function Navbar() {
         <div className="hidden md:flex flex-1 items-center justify-center">
           <NavigationMenu onClick={goToPageSection}>
             <NavigationMenuList className="flex gap-8">
-{navItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = section === item.href;
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = section === item.href;
 
-        return (
-          <NavigationMenuItem key={item.href} className="group/item">
-            <NavigationMenuLink
-              href={item.href}
-              className={`relative inline-flex items-center gap-1.5 px-3 py-2 rounded-md transition-colors duration-300
+                return (
+                  <NavigationMenuItem key={item.href} className="group/item">
+                    <NavigationMenuLink
+                      href={item.href}
+                      className={`relative inline-flex items-center gap-1.5 px-3 py-2 rounded-md transition-colors duration-300
                 ${
                   isActive
                     ? "!text-blue-500 dark:!text-cyan-400 bg-white dark:bg-slate-800"
                     : "text-muted-foreground hover:text-blue-400 dark:hover:text-cyan-300"
                 }`}
-            >
-              {/* icon */}
-              <Icon
-                className={`w-4 h-4 transition-all duration-200
+                    >
+                      {/* icon */}
+                      <Icon
+                        className={`w-4 h-4 transition-all duration-200
                   ${
                     isActive
                       ? "text-blue-500 dark:text-cyan-400"
                       : "text-slate-500 dark:text-slate-400 group-hover/item:text-blue-400 dark:group-hover/item:text-cyan-300 group-hover/item:-translate-y-[1px]"
                   }`}
-              />
+                      />
 
-              {/* label */}
-              <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
-                {item.label}
-              </span>
+                      {/* label */}
+                      <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
+                        {item.label}
+                      </span>
 
-              {/* active underline */}
-              {isActive && (
-                <span className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-6 bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-              )}
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        );
-      })}
+                      {/* active underline */}
+                      {isActive && (
+                        <span className="absolute bottom-1 left-0 right-0 mx-auto h-[2px] w-6 bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                      )}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                );
+              })}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -178,24 +178,43 @@ export default function Navbar() {
                 className="flex flex-col space-y-4 p-6 text-lg font-medium"
                 onClick={goToPageSection}
               >
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={`transition-colors duration-200 relative
-                    ${
-                      section === item.href
-                        ? "text-blue-500 dark:text-cyan-400"
-                        : "text-foreground hover:text-blue-400 dark:hover:text-cyan-300"
-                    }`}
-                  >
-                    {item.label}
-                    {section === item.href && (
-                      <span className="absolute -bottom-1 left-0 w-6 h-[2px] bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-                    )}
-                  </a>
-                ))}
+  {navItems.map((item) => {
+        const Icon = item.icon;
+        const isActive = section === item.href;
+
+        return (
+          <a
+            key={item.href}
+            href={item.href}
+            onClick={() => setOpen(false)}
+            className={`group/item flex items-center gap-3 relative transition-colors duration-200
+              ${
+                isActive
+                  ? "text-blue-500 dark:text-cyan-400"
+                  : "text-foreground hover:text-blue-400 dark:hover:text-cyan-300"
+              }`}
+          >
+            {/* icon */}
+            <Icon
+              className={`w-5 h-5 transition-all duration-200 ${
+                isActive
+                  ? "text-blue-500 dark:text-cyan-400"
+                  : "text-slate-500 dark:text-slate-400 group-hover/item:text-blue-400 dark:group-hover/item:text-cyan-300 group-hover/item:-translate-y-[1px]"
+              }`}
+            />
+
+            {/* label */}
+            <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
+              {item.label}
+            </span>
+
+            {/* active underline */}
+            {isActive && (
+              <span className="absolute -bottom-1 left-0 w-6 h-[2px] bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+            )}
+          </a>
+        );
+      })}
 
                 {/* Theme switch */}
                 <div className="flex items-center space-x-3 pt-6 border-t border-white/10">
