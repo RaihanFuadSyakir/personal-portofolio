@@ -217,7 +217,7 @@ export default function Navbar() {
                     >
                       {/* icon */}
                       <Icon
-                        className={`w-5 h-5 transition-all duration-200 ${
+                        className={`pointer-events-none w-5 h-5 transition-all duration-200 ${
                           isActive
                             ? "text-blue-500 dark:text-cyan-400"
                             : "text-slate-500 dark:text-slate-400 group-hover/item:text-blue-400 dark:group-hover/item:text-cyan-300 group-hover/item:-translate-y-[1px]"
@@ -225,13 +225,13 @@ export default function Navbar() {
                       />
 
                       {/* label */}
-                      <span className="transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
+                      <span className="pointer-events-none transition-colors group-hover/item:text-blue-500 dark:group-hover/item:text-cyan-400">
                         {item.label}
                       </span>
 
                       {/* active underline */}
                       {isActive && (
-                        <span className="absolute -bottom-1 left-0 w-6 h-[2px] bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+                        <span className="pointer-events-none absolute-bottom-1 left-0 w-6 h-[2px] bg-blue-400 dark:bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
                       )}
                     </a>
                   );
